@@ -1,0 +1,39 @@
+{
+  "name": "askpdfsbackend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/index.js",
+    "dev": "npx nodemon",
+    "build": "npx tsc",
+    "watch": "npx nodemon"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.13.13",
+    "@types/pdf-parse": "^1.1.4",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@langchain/core": "^0.3.43",
+    "@supabase/supabase-js": "^2.49.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "langchain": "^0.3.19",
+    "multer": "^1.4.5-lts.2",
+    "openai": "^4.89.0",
+    "pdf-parse": "^1.1.1"
+  }
+}

@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  gateway:
+    build:
+      context: ./gateway
+    ports:
+      - "3001:3001"
+    depends_on:
+      - pdf-service
+      - chat-service
+    environment:
+      PDF_SERVICE_URL: http://pdf-service:3002
+      CHAT_SERVICE_URL: http://chat-service:3003
+
+  pdf-service:
+    build:
+      context: ./PDFProcessor
+    ports:
+      - "3002:3002"
+
+  chat-service:
+    build:
+      context: ./ChatProcessor
+    ports:
+      - "3003:3003"
