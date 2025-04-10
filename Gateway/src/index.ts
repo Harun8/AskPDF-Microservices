@@ -2,7 +2,7 @@ import express from "express";
 import { createProxyMiddleware, Options } from "http-proxy-middleware";
 // import { services } from "./utils/endpoints";
 import cors from "cors";
-// import { limiter } from "./utils/RateLimiter";
+import { limiter } from "./utils/RateLimiter";
 const app = express();
 const PORT = 3001;
 const pdfService =  "http://pdf-service:3002";
@@ -26,7 +26,7 @@ app.options("/api/chatprocessor/llm", cors(corsOptions));
   // app.use(cors());
   // app.use(cookieParser());
   
-  // app.use(limiter)
+  app.use(limiter)
 app.use((req, res, next) => {
   console.log("🔍 Incoming request path:", req.path);
   next();
