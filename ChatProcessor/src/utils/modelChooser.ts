@@ -1,5 +1,5 @@
-function modelChooser(plan: string | null) {
-    let modelChooser;
+function modelChooser(plan: string | null): string {
+    let modelChooser: string | null = "gpt-4-0125-preview";
     // change to a switch case when u see this
     if (plan == null) {
       // free plan

@@ -49,14 +49,12 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY, // api key
 });
 
-export const maxDuration = 60; // change if hobby is changed
-export const dynamic = "force-dynamic";
 
 let channelB;
 
 export const Chat = async (req: Request, res: Response): Promise<any> => {
   try {
-    const data = req.body; // Assuming text data if not form data
+    const data= req.body; // Assuming text data if not form data
     console.log("Received data in ChatProcessor:", data, req.body);
     console.log("Received data in ChatProcessor:", data.sessionId);
 
@@ -110,26 +108,11 @@ export const Chat = async (req: Request, res: Response): Promise<any> => {
 
     return res.status(200).json({ msg: "PDF RECEIVED IT IS BEING PROCESSED" });
 
-    return new Response(
-      JSON.stringify({ msg: "PDF RECEVIED IT IS BEING PROCCESSED" }),
-      {
-        status: 200, // Set the status code to 200 (OK)
-        headers: {
-          "Content-Type": "application/json", // Set the Content-Type header to 'application/json'
-        },
-      }
-    );
   } catch (error) {
     console.log(error);
     return res.status(400).json({ error});
 
-    console.error(error);
-    return new Response(JSON.stringify(error), {
-      status: 404, // Set the status code to 200 (OK)
-      headers: {
-        "Content-Type": "application/json", // Set the Content-Type header to 'application/json'
-      },
-    });
+
   }
 }
 
@@ -138,69 +121,8 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY
 );
 
-// async function processData(data) {
-//   try {
-//     channelB = client.channel(`session-${data.sessionId}`);
-
-//     const llm = new ChatOpenAI({
-//       openAIApiKey: process.env.OPENAI_API_KEY,
-//       modelName: modelChooser(data.plan),
-//       streaming: true,
-//       //  temperature: 0.5
-//     });
-
-//     const standaloneQuestionchain = standaloneQuestionPrompt
-//       .pipe(llm)
-//       .pipe(new StringOutputParser());
-
-//     const retrieverChain = RunnableSequence.from([
-//       (prevResult) => prevResult.standalone_question,
-//       (prevResult) => retriver(prevResult, data.file_id),
-//       combineDocuments,
-//     ]);
-
-//     const answerChain = answerPrompt.pipe(llm).pipe(new StringOutputParser());
-
-//     const chain = RunnableSequence.from([
-//       {
-//         standalone_question: standaloneQuestionchain,
-//         original_input: new RunnablePassthrough(),
-//       },
-//       {
-//         context: retrieverChain,
-//         question: ({ original_input }) => original_input.question,
-//         conv_history: ({ original_input }) => original_input.conv_history,
-//       },
-//       answerChain,
-//     ]);
-
-//     const response = await chain.stream({
-//       question: data.messageText,
-//       conv_history: await formatConvHistory(data.conv_history),
-//     });
-
-//     for await (const chunk of response) {
-//       await channelB.send({
-//         type: "broadcast",
-//         event: "acknowledge",
-//         payload: { message: chunk },
-//       });
-//     }
-//     client.removeChannel(channelB);
-//   } catch (error) {
-//     console.error(error.message);
-//     channelB.send({
-//       type: "broadcast",
-//       event: "acknowledge",
-//       payload: { message: error },
-//     });
-
-//     client.removeChannel(channelB);
-//   }
-// }
-
 async function retriver(queryText: string, file_id: string) {
-  const model = "text-embedding-3-small";
+  const model: string = "text-embedding-3-small";
   // Generate the embedding vector for the query text
   let queryEmbedding;
   try {
